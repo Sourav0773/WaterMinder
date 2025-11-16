@@ -26,7 +26,7 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel = Aut
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    var loading by remember { mutableStateOf(false) } // ✅ Track loading
+    var loading by remember { mutableStateOf(false) } 
 
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
@@ -81,7 +81,7 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel = Aut
                             singleLine = true,
                             modifier = Modifier.fillMaxWidth(),
                             leadingIcon = { Icon(Icons.Default.Person, contentDescription = "Email Icon") },
-                            enabled = !loading // ✅ Disable when loading
+                            enabled = !loading 
                         )
 
                         Spacer(modifier = Modifier.height(16.dp))
@@ -95,7 +95,7 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel = Aut
                             visualTransformation = PasswordVisualTransformation(),
                             modifier = Modifier.fillMaxWidth(),
                             leadingIcon = { Icon(Icons.Default.Lock, contentDescription = "Password Icon") },
-                            enabled = !loading // ✅ Disable when loading
+                            enabled = !loading 
                         )
 
                         Spacer(modifier = Modifier.height(32.dp))
@@ -153,7 +153,7 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel = Aut
                             Text("Don't have an account? ", color = Color.Gray)
                             TextButton(
                                 onClick = { navController.navigate("signup") },
-                                enabled = !loading // disable while loading
+                                enabled = !loading 
                             ) {
                                 Text("SignUp", color = MaterialTheme.colorScheme.primary)
                             }
