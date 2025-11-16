@@ -12,7 +12,7 @@ import com.example.waterminder.ui.screens.*
 fun NavGraph(startDestination: String = "splash") {
 
     val navController = rememberNavController()
-    val duration = 300 // Animation duration
+    val duration = 300
 
     // Helper functions within the scope of NavGraph
 
@@ -21,7 +21,7 @@ fun NavGraph(startDestination: String = "splash") {
         towards = AnimatedContentTransitionScope.SlideDirection.Left,
         animationSpec = tween(durationMillis = duration)
     ) + scaleIn(
-        initialScale = 1.05f, // Starts slightly larger than normal
+        initialScale = 1.05f,
         animationSpec = tween(durationMillis = duration)
     )
 
@@ -30,7 +30,7 @@ fun NavGraph(startDestination: String = "splash") {
         towards = AnimatedContentTransitionScope.SlideDirection.Left,
         animationSpec = tween(durationMillis = duration)
     ) + scaleOut(
-        targetScale = 0.95f, // Shrinks slightly
+        targetScale = 0.95f, 
         animationSpec = tween(durationMillis = duration)
     ) + fadeOut(animationSpec = tween(durationMillis = duration))
 
@@ -48,7 +48,7 @@ fun NavGraph(startDestination: String = "splash") {
         towards = AnimatedContentTransitionScope.SlideDirection.Right,
         animationSpec = tween(durationMillis = duration)
     ) + scaleOut(
-        targetScale = 1.05f, // Scales slightly larger as it leaves
+        targetScale = 1.05f, 
         animationSpec = tween(durationMillis = duration)
     )
 
@@ -83,7 +83,6 @@ fun NavGraph(startDestination: String = "splash") {
 
         composable(
             route = "home",
-            // Home might have slightly different transitions if it's the root level
             enterTransition = { enterTransition() },
             exitTransition = { exitTransition() },
             popEnterTransition = { popEnterTransition() },
