@@ -46,7 +46,7 @@ fun SignupScreen(navController: NavController) {
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(paddingValues),
-                contentAlignment = Alignment.Center // ✅ Center the card
+                contentAlignment = Alignment.Center 
             ) {
                 Card(
                     modifier = Modifier
