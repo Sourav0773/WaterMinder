@@ -10,16 +10,31 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.waterminder.db.modules.DatabaseModule
 import com.example.waterminder.ui.theme.AppBackground
 import kotlinx.coroutines.delay
+
+
 
 @Composable
 fun SplashScreen(navController: NavController) {
 
     LaunchedEffect(true) {
-        delay(2000)
-        navController.navigate("login") {
-            popUpTo("splash") { inclusive = true }
+        delay(1500)
+
+        val db = DatabaseModule.getDb(navController.context)
+        val user = db.userDao().getUser()
+
+        if (user != null) {
+            // Email exists → auto login
+            navController.navigate("home") {
+                popUpTo("splash") { inclusive = true }
+            }
+        } else {
+            // No user → go to login
+            navController.navigate("login") {
+                popUpTo("splash") { inclusive = true }
+            }
         }
     }
 
@@ -37,4 +52,3 @@ fun SplashScreen(navController: NavController) {
         }
     }
 }
-

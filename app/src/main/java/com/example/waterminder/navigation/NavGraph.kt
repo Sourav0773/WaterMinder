@@ -6,10 +6,14 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.waterminder.db.dao.UserDAO
 import com.example.waterminder.ui.screens.*
 
 @Composable
-fun NavGraph(startDestination: String = "splash") {
+fun NavGraph(
+    startDestination: String = "splash",
+    userDao: UserDAO
+) {
 
     val navController = rememberNavController()
     val duration = 300 // Animation duration
@@ -88,6 +92,9 @@ fun NavGraph(startDestination: String = "splash") {
             exitTransition = { exitTransition() },
             popEnterTransition = { popEnterTransition() },
             popExitTransition = { popExitTransition() }
-        ) { HomeScreen() }
+        ) { HomeScreen(
+            navController = navController,
+            userDao = userDao
+        ) }
     }
 }

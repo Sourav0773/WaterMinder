@@ -15,6 +15,8 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.waterminder.db.entity.UserEntity
+import com.example.waterminder.db.modules.DatabaseModule
 import com.example.waterminder.models.AuthViewModel
 import com.example.waterminder.ui.theme.AppBackground
 import kotlinx.coroutines.launch
@@ -26,7 +28,7 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel = Aut
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    var loading by remember { mutableStateOf(false) } // ✅ Track loading
+    var loading by remember { mutableStateOf(false) } // Track loading
 
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
@@ -95,7 +97,7 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel = Aut
                             visualTransformation = PasswordVisualTransformation(),
                             modifier = Modifier.fillMaxWidth(),
                             leadingIcon = { Icon(Icons.Default.Lock, contentDescription = "Password Icon") },
-                            enabled = !loading // ✅ Disable when loading
+                            enabled = !loading // Disable when loading
                         )
 
                         Spacer(modifier = Modifier.height(32.dp))
@@ -117,6 +119,12 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel = Aut
                                         password,
                                         onSuccess = {
                                             loading = false
+
+                                            val db = DatabaseModule.getDb(navController.context)
+                                            scope.launch {
+                                                db.userDao().saveUser(UserEntity(email = email))
+                                            }
+
                                             scope.launch { snackbarHostState.showSnackbar("Successfully signed in!") }
                                             navController.navigate("home") {
                                                 popUpTo("login") { inclusive = true }
